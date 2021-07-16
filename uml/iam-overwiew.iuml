@@ -1,0 +1,82 @@
+@startuml IAM Flow
+title Identity and Access Management Flow
+autonumber
+skinparam MaxMessageSize 100
+
+actor Cliente
+
+box Partner #2d7f6250
+participant "Plataforma" as PartnerApp
+participant "API" as PartnerAPI
+end box
+
+box Provider #03113650
+participant "API" as ProviderAPI
+end box
+
+box FPASS #b43de750
+participant "Plataforma" as FpassApp
+participant "API" as FpassAPI
+end box
+
+group Identity
+Cliente -> PartnerApp: Acessa
+Cliente -> PartnerApp: CTA\nAcesse FPass
+
+group Credentialing
+
+PartnerApp -> PartnerAPI: Solicita URL
+PartnerAPI -> ProviderAPI: Credential Creation Request
+note left
+**POST: /{partnerCode}/jwt**
+**JWT Payload**
+Assinado pelo Partner
+{
+  "hash": "{uuidv4}"
+}
+end note
+group Creation
+ProviderAPI -> ProviderAPI: Autorization Header Verification
+ProviderAPI -> ProviderAPI: FPass JWT Credential
+note right
+**JWT Payload**
+{
+  "hash": "{uuidv4}",
+  "role": "participant",
+  "whitelabel": "{partnerCode}"
+}
+end note
+ProviderAPI -> ProviderAPI: Encripta o JWT
+ProviderAPI -> ProviderAPI: Prepara URL + JWT(encriptado)
+ProviderAPI -> PartnerAPI: Response
+note right
+**Body**
+{
+  "url": "https://app.fpass.com.br/?jwt={encryptedJWT}",
+  "expires_at": "{dateiso}"
+}
+end note
+end
+end
+PartnerAPI -> PartnerApp: Response
+PartnerApp -> FpassApp: Direciona para URL
+end
+
+group Access Management
+FpassApp -> FpassAPI: Request
+FpassAPI -> FpassAPI: Decodificar o JWT
+FpassAPI -> FpassAPI: JWT Verification
+group Registration (New user)
+FpassAPI --> FpassApp
+FpassApp --> Cliente: Tela de Registro
+Cliente --> FpassApp: Preenche os dados
+FpassApp --> FpassAPI
+end
+group Login (Registered user)
+FpassAPI -> FpassApp: Response
+FpassApp -> Cliente: Fpass App [Logado]
+end
+end
+
+
+@enduml
