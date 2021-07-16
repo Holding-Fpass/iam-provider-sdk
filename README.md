@@ -5,8 +5,7 @@ Package de definições para integração de um provedor de identidade e gerecia
 Gerir acessos e autorizações entre parceiros (Partners), provedores (Providers) e plataforma (Fpass).
 
 ## Overview
-![Overview](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Holding-Fpass/
-iam-provider-sdk/main/uml/iam-overview.iuml)
+![Overview](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Holding-Fpass/iam-provider-sdk/main/uml/iam-overview.iuml)
 
 ### Credential Creation Request
 A geração de uma credencial válida será solicitada pelo _Partner_ ao _Provider_.
