@@ -51,8 +51,6 @@ ProviderAPI -> ProviderAPI: Encripta o JWT
 ProviderAPI -> ProviderAPI: Prepara URL + JWT(encriptado)
 ProviderAPI -> PartnerAPI: Response
 note right
-**Headers**
-Authorization: Bearer {jwtProvider}
 **Response Body**
 {
   "url": "https://app.fpass.com.br",
