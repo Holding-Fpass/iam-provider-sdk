@@ -44,5 +44,4 @@ JWT Payload
 
 ### Autorization Header Verification / JWT Verification
 Verificação do _header_ _Autorization_ da _Request_ onde o _Bearer_ contêm um JWT.
-- Signing default: HS256
-- Secret format: uuidv4
+- Signing default: RS256

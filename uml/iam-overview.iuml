@@ -29,8 +29,9 @@ PartnerApp -> PartnerAPI: Solicita URL
 PartnerAPI -> ProviderAPI: Credential Creation Request
 note left
 **POST: /{partnerCode}/jwt**
+**Headers**
+Authorization: Bearer {jwtPartner}
 **JWT Payload**
-Assinado pelo Partner
 {
   "hash": "{uuidv4}"
 }
@@ -50,16 +51,19 @@ ProviderAPI -> ProviderAPI: Encripta o JWT
 ProviderAPI -> ProviderAPI: Prepara URL + JWT(encriptado)
 ProviderAPI -> PartnerAPI: Response
 note right
-**Body**
+**Headers**
+Authorization: Bearer {jwtProvider}
+**Response Body**
 {
-  "url": "https://app.fpass.com.br/?jwt={encryptedJWT}",
+  "url": "https://app.fpass.com.br",
+  "jwt": "{encryptedJWT}",
   "expires_at": "{dateiso}"
 }
 end note
 end
 end
 PartnerAPI -> PartnerApp: Response
-PartnerApp -> FpassApp: Direciona para URL
+PartnerApp -> FpassApp: Direciona para URL: {url}/?jwt={encryptedJWT}
 end
 
 group Access Management
