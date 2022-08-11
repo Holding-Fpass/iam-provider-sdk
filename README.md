@@ -8,7 +8,7 @@ Garantir acesso SSO entre sistemas entre parceiros (Partners) e plataforma (FPAS
 
 ## Overview
 
-![Overview](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Holding-Fpass/iam-provider-sdk/main/uml/iam-overview-v2.0.0.iuml)
+![Overview](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Holding-Fpass/iam-provider-sdk/main/uml/iam-overview-v2.0.1.iuml)
 
 ### Credentialing
 
