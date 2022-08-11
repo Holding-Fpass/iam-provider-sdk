@@ -1,0 +1,78 @@
+@startuml IAM Flow
+title FPASS Identity and Access Management Flow
+footer v2.0.0
+autonumber
+skinparam MaxMessageSize 100
+
+actor Cliente
+
+box Partner #2d7f6250
+participant "Plataforma" as PartnerApp
+participant "API" as PartnerAPI
+end box
+
+box FPASS #b43de750
+participant "Plataforma" as FpassApp
+participant "API" as FpassAPI
+end box
+
+group Identity
+Cliente -> PartnerApp: Acessa
+Cliente -> PartnerApp: CTA\nAcesse FPass
+
+group Credentialing
+
+PartnerApp -> PartnerAPI: Solicita URL com JWT
+PartnerAPI -> PartnerAPI: JWT generation
+note left
+**POST: /jwt**
+**JWT Payload**
+{
+  "sub": "{userId}",
+  "tags": [
+    "Tag 1",
+    "Tag 2",
+    "Tag N"
+  ],
+  "aud": "www.fpass.com.br",
+  "iss": "{partnerId}",
+  "exp": "{+10secsTimestamp}"
+}
+end note
+PartnerAPI -> PartnerApp: Response
+note right
+**Response Body**
+{
+  "url": "{fpassPlatformUrl}",
+  "jwt": "{jwt}"
+}
+end note
+end
+
+PartnerApp -> FpassApp: Redirecionar
+note right
+**URL**
+{fpassPlatformUrl}/?jwt={jwt}
+end note
+end
+
+group Access Management
+FpassApp -> FpassAPI: Request
+FpassAPI -> FpassAPI: JWT Verification
+group Registration (New user)
+FpassAPI --> FpassApp
+FpassApp --> Cliente: Tela de Registro
+Cliente --> FpassApp: Preenche os dados
+FpassApp --> FpassAPI
+FpassAPI -> FpassAPI: Update user tags
+FpassApp -> Cliente: FPASS App [Logado]
+end
+group Login (Registered user)
+FpassAPI -> FpassAPI: Update user tags
+FpassAPI -> FpassApp: Response
+FpassApp -> Cliente: FPASS App [Logado]
+end
+end
+
+
+@enduml
