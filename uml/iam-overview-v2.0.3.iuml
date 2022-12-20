@@ -34,6 +34,7 @@ note left
     "Tag 2",
     "Tag N"
   ],
+  "lang": "es",
   "aud": "www.fpass.com.br",
   "iss": "{partnerId}",
   "exp": "{+10secsTimestamp}"
