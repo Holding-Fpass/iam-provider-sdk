@@ -35,6 +35,10 @@ note left
     "Tag N"
   ],
   "lang": "es",
+  "providerExtra": {
+    "infoA": "valueA",
+    "externalParentId": "{responsableUserId}"
+  },
   "aud": "www.fpass.com.br",
   "iss": "{partnerId}",
   "exp": "{+10secsTimestamp}"
