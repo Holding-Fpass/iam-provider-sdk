@@ -35,13 +35,12 @@ note left
     "Tag N"
   ],
   "lang": "es",
+  "externalParentId": "{responsableUserId}",
   "providerExtra": {
-    "infoA": "valueA",
-    "externalParentId": "{responsableUserId}"
+    "infoA": "valueA"
   },
   "aud": "www.fpass.com.br",
-  "iss": "{partnerId}",
-  "exp": "{+10secsTimestamp}"
+  "iss": "{partnerId}"
 }
 end note
 PartnerAPI -> PartnerApp: Response
